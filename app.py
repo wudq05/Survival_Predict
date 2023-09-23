@@ -49,10 +49,17 @@ if st.sidebar.button('Predict'):
     plt.figure()
     for i, s in enumerate(surv):
         plt.step(model.event_times_, s, where="post", label=str(i))
+
     
     plt.ylabel("Survival Probability")
     plt.xlabel("Time in months")
     plt.grid(True)
 
+    with open("rsf.pickle", "rb") as f:
+        rsf = pickle.load(f)
+
+    rsf_score = rsf.predict(input_data)[0]
+
     
+    st.subheader("Hazard stratification: " +  rsf_score)
     st.pyplot(plt)  # 在Streamlit应用程序中显示绘制的图形
