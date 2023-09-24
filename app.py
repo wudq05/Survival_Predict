@@ -1,12 +1,11 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 import pickle
-import joblib
 import matplotlib.pyplot as plt
 
 # 加载训练好的模型
-model = joblib.load('rsf.pickle')
+with open("rsf.pickle", "rb") as f:
+    rsf = pickle.load(f)
 
 # 创建界面标题
 st.title('Machine Learning to Evaluate Prognosis of DCM Patient')
@@ -43,23 +42,29 @@ if st.sidebar.button('Predict'):
     })
 
     # 计算生存曲线
-    surv = model.predict_survival_function(input_data, return_array=True)
+    surv = rsf.predict_survival_function(input_data, return_array=True)
 
     # 绘制生存曲线
     plt.figure()
     for i, s in enumerate(surv):
-        plt.step(model.event_times_, s, where="post", label=str(i))
+        plt.step(rsf.event_times_, s, where="post", label=str(i))
 
     
     plt.ylabel("Survival Probability")
     plt.xlabel("Time in months")
     plt.grid(True)
 
-    with open("rsf.pickle", "rb") as f:
-        rsf = pickle.load(f)
 
     rsf_score = rsf.predict(input_data)[0]
-
+    # 预测值小于3.52时，显示低风险
+    if rsf_score < 3.52:
+        rsf_score = "Low Risk Group"
+    # 预测值介于3.52-8.83时，显示中风险
+    elif rsf_score >= 3.52 and rsf_score < 8.83:
+        rsf_score = "Medium Risk Group"
+    #预测值大于8.83时，显示高风险
+    else:
+        rsf_score = "High Risk Group"
     
     st.subheader("Hazard stratification: " +  rsf_score)
     st.pyplot(plt)  # 在Streamlit应用程序中显示绘制的图形
