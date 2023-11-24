@@ -37,7 +37,7 @@ lvedd = st.sidebar.slider('LVEDD (mm)', 0, 150, 50)
 lvef = st.sidebar.slider('LVEF (%)', 45, 100, 50)
 QRSL = st.sidebar.slider('QRS (ms)', 200, 500, 450)
 Lymph = st.sidebar.slider('Lym (10⁹/L)', 0, 30, 450)
-Na = st.sidebar.slider('Na⁺⁺ (g/L)', 50, 200, 4)
+Na = st.sidebar.slider('Na⁺ (g/L)', 50, 200, 4)
 Glu = st.sidebar.slider('FBG (mmol/L)', 0, 50, 4)
 ntpro_bnp = st.sidebar.slider('NT-proBNP (ng/mL)', 0, 100000, 1000)
 
