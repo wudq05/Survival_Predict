@@ -4,7 +4,7 @@ import pickle
 import matplotlib.pyplot as plt
 
 # 加载训练好的模型
-with open("EST.pickle", "rb") as f:
+with open("rsf.pickle", "rb") as f:
     EST = pickle.load(f)
 
 # 创建界面标题
@@ -36,11 +36,10 @@ BMI = st.sidebar.slider('BMI (Kg/m\u00B2)', 10, 60, 40)
 lvedd = st.sidebar.slider('LVEDD (mm)', 0, 150, 50)
 lvef = st.sidebar.slider('LVEF (%)', 45, 100, 50)
 QRSL = st.sidebar.slider('QRS (ms)', 200, 500, 450)
-Lymph = st.sidebar.slider('Lym (10\u00B9/L)', 0,30, 450)
-Na = st.sidebar.slider('Na (g/L)', 50, 200, 4)
+Lymph = st.sidebar.slider('Lym (10⁹/L)', 0, 30, 450)
+Na = st.sidebar.slider('Na⁺⁺ (g/L)', 50, 200, 4)
 Glu = st.sidebar.slider('FBG (mmol/L)', 0, 50, 4)
 ntpro_bnp = st.sidebar.slider('NT-proBNP (ng/mL)', 0, 100000, 1000)
-
 
 
 # 创建预测按钮
